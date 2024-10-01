@@ -1,7 +1,7 @@
-export default function Home() {
+export default function Pricing() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <p>welcome home</p>
+      <p>our pricing</p>
     </main>
   );
 }
