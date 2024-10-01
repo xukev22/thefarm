@@ -33,8 +33,8 @@ export default function RootLayout({
 
         <SessionContextWrapper>
           <Header />
+          {children}
         </SessionContextWrapper>
-        {children}
         <Footer />
         <Toaster position="bottom-right" />
       </body>

@@ -46,7 +46,7 @@ export default function Header() {
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="text-xl font-bold text-blue-600">
-          <Link href="/">LOGO</Link>
+          <Link href="/">THE FARM</Link>
         </div>
 
         {/* Links */}
@@ -147,7 +147,7 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             <span className="text-gray-700 font-medium">
               Welcome back,{" "}
-              <span className="text-blue-600">{session.user?.name}</span>
+              <span className="text-blue-600">{session.user.name}</span>
             </span>
             <Link href="/api/auth/signout">
               <motion.button

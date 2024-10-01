@@ -1,9 +1,10 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, Session } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { Pool } from "pg";
 import bcrypt from "bcrypt";
 
+import { JWT } from "next-auth/jwt";
 interface Profile {
   id: number; // Corresponds to the "id" column (INT)
   name: string; // Corresponds to the "name" column (VARCHAR)
@@ -86,4 +87,32 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
+  // pages: {
+  //   signIn: "/signIn",
+  // },
+  callbacks: {
+    async session({ session, token }: { session: Session; token: JWT }) {
+      // Add user ID, username, name, and email to the session object
+      if (token) {
+        session.user.id = token.id as string;
+        session.user.username = token.username as string;
+        session.user.name = token.name as string;
+        session.user.email = token.email as string;
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      // Add user info to the JWT token on sign-in
+      if (user) {
+        token.id = user.id;
+        token.username = user.username;
+        token.name = user.name;
+        token.email = user.email;
+      }
+      return token;
+    },
+  },
+  session: {
+    strategy: "jwt",
+  },
 };
