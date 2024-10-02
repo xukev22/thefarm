@@ -1,8 +1,8 @@
 import { NextAuthOptions, Session } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { Pool } from "pg";
 import bcrypt from "bcrypt";
+import pool from "@/lib/db-pool";
 
 import { JWT } from "next-auth/jwt";
 interface Profile {
@@ -12,15 +12,6 @@ interface Profile {
   username: string; // Corresponds to the "username" column (VARCHAR)
   password: string; // Corresponds to the "password" column (TEXT)
 }
-
-// Initialize the connection pool
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: 5432, // default PostgreSQL port
-});
 
 export const options: NextAuthOptions = {
   providers: [
