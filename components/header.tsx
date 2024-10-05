@@ -15,15 +15,15 @@ interface LinkItem {
 
 export default function Header() {
   const { data: session } = useSession();
-
+  const [activeLink, setActiveLink] = useState<String>("Home");
   const pathname = usePathname();
-
-  const [activeLink, setActiveLink] = useState<string>("Home");
   // Sync active link with the current pathname
-  useEffect(() => {
+  useEffect(() => { 
     const activeItem = links.find((linkItem) => linkItem.link === pathname);
     if (activeItem) {
       setActiveLink(activeItem.name);
+    } else if (pathname.startsWith("/dashboard/farms")) {
+      setActiveLink("Dashboard");
     }
   }, [pathname]); // Runs whenever the pathname changes
 
