@@ -2,7 +2,7 @@ import { options } from "../auth/[...nextauth]/options";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next"; // If you're using next-auth
 import pool from "@/lib/db-pool";
-import { FarmDB, FarmHeaderDB } from "@/lib/types";
+import { FarmHeaderDB } from "@/lib/types";
 
 export async function GET() {
   const session = await getServerSession(options);

@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { links } from "@/lib/data";
 import { useSession } from "next-auth/react";
 
-export default function Header() {
+export default function Navbar() {
   const { data: session } = useSession();
   const [activeLink, setActiveLink] = useState<String>("Home");
   const pathname = usePathname();

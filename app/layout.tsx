@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header";
+import Navbar from "@/components/navbar";
 import { Toaster } from "react-hot-toast";
 import Footer from "@/components/footer";
 import SessionContextWrapper from "@/context/session-context-wrapper";
@@ -20,6 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="!scroll-smooth">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body
         className={`${inter.className} bg-gray-50 text-gray-950 relative pt-28 sm:pt-3 dark:bg-gray-900 dark:text-gray-50 dark:text-opacity-90`}
       >
@@ -35,7 +38,7 @@ export default function RootLayout({
           <div className="absolute bottom-36 right-36 bg-[#ff9b5d] h-30 w-40 rounded-[55%] rotate-15"></div>
         </div>
         <SessionContextWrapper>
-          <Header />
+          <Navbar />
         </SessionContextWrapper>
         {children}
         <Footer />
