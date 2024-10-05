@@ -24,7 +24,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body
-        className={`${inter.className} bg-gray-50 text-gray-950 relative pt-28 sm:pt-3 dark:bg-gray-900 dark:text-gray-50 dark:text-opacity-90`}
+        className={`${inter.className} bg-gray-50 text-gray-950 relative pt-28 sm:pt-3`}
       >
         {/* Cow print-like background with blobs */}
         <div className="absolute inset-0 -z-10">
