@@ -34,12 +34,11 @@ export default function RootLayout({
           <div className="absolute bottom-24 right-10 bg-emerald-900 h-40 w-56 rounded-[60%] -rotate-8"></div>
           <div className="absolute top-36 left-40 bg-orange-300 h-24 w-32 rounded-[65%] rotate-9"></div>
           <div className="absolute bottom-36 right-36 bg-[#ff9b5d] h-30 w-40 rounded-[55%] rotate-15"></div>
-
         </div>
         <SessionContextWrapper>
           <Header />
-          {children}
         </SessionContextWrapper>
+        {children}
         <Footer />
         <Toaster position="bottom-right" />
       </body>
