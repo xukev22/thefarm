@@ -33,9 +33,10 @@ export default function Farm({ session }: FarmProps) {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter(); // To handle navigation
-
   useEffect(() => {
     const fetchFarms = async () => {
+      setLoading(true); // Start loading before making the API request
+
       try {
         const res = await fetch("/api/farms", {
           headers: {
@@ -49,10 +50,10 @@ export default function Farm({ session }: FarmProps) {
 
         const data = await res.json();
         setFarms(data.farms); // Assuming the farms array is returned from the API
-        setLoading(false);
       } catch (err) {
         setError("Failed to fetch farms. Please try again later.");
-        setLoading(false);
+      } finally {
+        setLoading(false); // Always set loading to false, success or error
       }
     };
 

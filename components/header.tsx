@@ -45,7 +45,7 @@ export default function Header() {
     >
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
-        <div className="text-xl font-bold text-blue-600">
+        <div className="text-xl font-bold text-green-800">
           <Link href="/">THE FARM</Link>
         </div>
 
@@ -57,7 +57,7 @@ export default function Header() {
               key={linkItem.name}
               className={`relative cursor-pointer px-4 py-2 rounded-lg font-medium transition-all ${
                 activeLink === linkItem.name
-                  ? "bg-blue-500 text-white"
+                  ? "bg-green-700 text-white"
                   : "text-gray-700 hover:bg-gray-200"
               }`}
               initial={{ opacity: 0, x: -50 }}
@@ -82,7 +82,7 @@ export default function Header() {
               {activeLink === linkItem.name && (
                 <motion.span
                   layoutId="highlight"
-                  className="absolute inset-0 bg-blue-500 rounded-lg -z-10"
+                  className="absolute inset-0 bg-green-700 rounded-lg -z-10"
                   initial={{ scale: 0.95 }}
                   animate={{ scale: 1 }}
                   transition={{
@@ -102,7 +102,7 @@ export default function Header() {
               key={linkItem.name}
               className={`relative cursor-pointer px-4 py-2 rounded-lg font-medium transition-all ${
                 activeLink === linkItem.name
-                  ? "bg-blue-500 text-white"
+                  ? "bg-green-700 text-white"
                   : "text-gray-700 hover:bg-gray-200"
               }`}
               initial={{ opacity: 0, x: 50 }}
@@ -127,7 +127,7 @@ export default function Header() {
               {activeLink === linkItem.name && (
                 <motion.span
                   layoutId="highlight"
-                  className="absolute inset-0 bg-blue-500 rounded-lg -z-10"
+                  className="absolute inset-0 bg-green-700 rounded-lg -z-10"
                   initial={{ scale: 0.95 }}
                   animate={{ scale: 1 }}
                   transition={{
@@ -147,11 +147,11 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             <span className="text-gray-700 font-medium">
               Welcome back,{" "}
-              <span className="text-blue-600">{session.user.name}</span>
+              <span className="text-green-800">{session.user.name}</span>
             </span>
             <Link href="/api/auth/signout">
               <motion.button
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg transition transform hover:bg-blue-700 hover:scale-105 active:scale-110"
+                className="bg-green-800 text-white px-4 py-2 rounded-lg shadow-lg transition transform hover:bg-green-900 hover:scale-105 active:scale-110"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 1.1 }}
               >
@@ -163,7 +163,7 @@ export default function Header() {
           <div>
             <Link href="/api/auth/signin">
               <motion.button
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg transition transform hover:bg-blue-700 hover:scale-105 active:scale-110"
+                className="bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg transition transform hover:bg-green-700 hover:scale-105 active:scale-110"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 1.1 }}
               >
