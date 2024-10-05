@@ -1,9 +1,6 @@
+import { LoadingProps } from "@/lib/types";
 import React from "react";
 import { FaSpinner } from "react-icons/fa";
-
-interface LoadingProps {
-  message?: string; // Optional message prop, defaulting to 'Loading...'
-}
 
 export default function Loading({ message = "Loading..." }: LoadingProps) {
   return (

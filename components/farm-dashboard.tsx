@@ -4,26 +4,11 @@ import React, { useState, useEffect } from "react";
 import { Session } from "next-auth"; // Import the Session type
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
-
-interface SessionProps {
-  session: Session;
-}
-
-interface Farm {
-  id: number;
-  name: string;
-  location: string;
-}
-
-interface Cow {
-  id: number;
-  name: string;
-  notes: string;
-}
+import { FarmDB, SessionProps, CowDB } from "@/lib/types";
 
 export default function FarmDashboard({ session }: SessionProps) {
-  const [farmData, setFarmData] = useState<Farm>();
-  const [cowsData, setCowsData] = useState<Cow[]>([]);
+  const [farmData, setFarmData] = useState<FarmDB>();
+  const [cowsData, setCowsData] = useState<CowDB[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const pathname = usePathname(); // Get farmid from the URL using useParams
@@ -36,7 +21,6 @@ export default function FarmDashboard({ session }: SessionProps) {
 
     const fetchFarmData = async () => {
       try {
-        console.log(`/api/farm/${farmid}`);
         const response = await fetch(`/api/farms/${farmid}`);
 
         if (response.status === 401) {
@@ -47,7 +31,7 @@ export default function FarmDashboard({ session }: SessionProps) {
           setError("Something went wrong.");
         } else {
           const data = await response.json();
-          console.log("use effect data");
+
           setFarmData(data.farm);
           setCowsData(data.cows);
         }
@@ -61,8 +45,6 @@ export default function FarmDashboard({ session }: SessionProps) {
 
     fetchFarmData();
   }, [pathname]); // Add pathname as a dependency
-
-  //   console.log(farmData);
 
   if (error) {
     return (
@@ -99,12 +81,13 @@ export default function FarmDashboard({ session }: SessionProps) {
         <h1>Farm Information</h1>
         <p>Farm ID: {farmData.id}</p>
         <p>Farm Name: {farmData.name}</p>
+        <p>Farm Location: {farmData.location}</p>
 
         <h2>Cows:</h2>
         <ul>
           {cowsData.map((cow: any) => (
             <li key={cow.id}>
-              Cow ID: {cow.id}, Cow Name: {cow.name}, Cow Notes: {cow.notes}
+              Cow ID: {cow.id}, Cow Name: {cow.name}, Cow Notes: {cow.notes},
             </li>
           ))}
         </ul>

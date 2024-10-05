@@ -1,20 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Session } from "next-auth"; // Import the Session type
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { FaArrowRight } from "react-icons/fa"; // Arrow icon
 import SectionHeading from "./section-heading";
 import Loading from "./loading";
-
-interface SessionProps {
-  session: Session;
-}
-
-interface Farm {
-  id: number;
-  name: string;
-  location: string;
-}
+import { FarmDB, SessionProps } from "@/lib/types";
 
 // Generate a random background gradient for the cards
 const randomBackground = () => {
@@ -29,7 +19,7 @@ const randomBackground = () => {
 };
 
 export default function Dashboard({ session }: SessionProps) {
-  const [farms, setFarms] = useState<Farm[]>([]);
+  const [farms, setFarms] = useState<FarmDB[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter(); // To handle navigation

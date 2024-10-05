@@ -2,6 +2,7 @@ import { options } from "../auth/[...nextauth]/options";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next"; // If you're using next-auth
 import pool from "@/lib/db-pool";
+import { FarmDB, FarmHeaderDB } from "@/lib/types";
 
 export async function GET() {
   const session = await getServerSession(options);
@@ -14,7 +15,7 @@ export async function GET() {
 
   try {
     // Query the database using the imported pool
-    const { rows: farms } = await pool.query(
+    const { rows: farms } = await pool.query<FarmHeaderDB>(
       "SELECT farm.id, farm.name FROM profile JOIN farm ON profile.id = farm.profile_id WHERE profile.id = $1",
       [session.user.id]
     );

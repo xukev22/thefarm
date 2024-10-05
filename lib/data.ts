@@ -1,4 +1,6 @@
-export const links = [
+import { LinkItem } from "@/lib/types";
+
+export const links: readonly LinkItem[] = [
   {
     name: "Home",
     link: "/",

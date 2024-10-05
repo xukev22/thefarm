@@ -3,15 +3,9 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import pool from "@/lib/db-pool";
+import { ProfileDB } from "@/lib/types";
 
 import { JWT } from "next-auth/jwt";
-interface Profile {
-  id: number; // Corresponds to the "id" column (INT)
-  name: string; // Corresponds to the "name" column (VARCHAR)
-  email: string; // Corresponds to the "email" column (VARCHAR)
-  username: string; // Corresponds to the "username" column (VARCHAR)
-  password: string; // Corresponds to the "password" column (TEXT)
-}
 
 export const options: NextAuthOptions = {
   providers: [
@@ -43,10 +37,8 @@ export const options: NextAuthOptions = {
           throw new Error("Please provide both username and password");
         }
 
-        console.log(credentials.username);
-
         // Fetch user from the database
-        const res = await pool.query<Profile>(
+        const res = await pool.query<ProfileDB>(
           "SELECT * FROM profile WHERE username = $1",
           [credentials.username]
         );
@@ -65,7 +57,7 @@ export const options: NextAuthOptions = {
         //   user.password
         // );
         const isValid = credentials.password === user.password;
-        console.log(user.id.toString());
+
         // Return user object without sensitive fields
         return isValid
           ? {

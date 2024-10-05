@@ -7,18 +7,12 @@ import { usePathname } from "next/navigation";
 import { links } from "@/lib/data";
 import { useSession } from "next-auth/react";
 
-// Type for individual link items
-interface LinkItem {
-  name: string;
-  link: string;
-}
-
 export default function Header() {
   const { data: session } = useSession();
   const [activeLink, setActiveLink] = useState<String>("Home");
   const pathname = usePathname();
   // Sync active link with the current pathname
-  useEffect(() => { 
+  useEffect(() => {
     const activeItem = links.find((linkItem) => linkItem.link === pathname);
     if (activeItem) {
       setActiveLink(activeItem.name);
@@ -52,7 +46,7 @@ export default function Header() {
         {/* Links */}
         <ul className="flex space-x-6">
           {/* Left links animate from the left */}
-          {leftLinks.map((linkItem: LinkItem) => (
+          {leftLinks.map((linkItem) => (
             <motion.li
               key={linkItem.name}
               className={`relative cursor-pointer px-4 py-2 rounded-lg font-medium transition-all ${
@@ -97,7 +91,7 @@ export default function Header() {
           ))}
 
           {/* Right links animate from the right */}
-          {rightLinks.map((linkItem: LinkItem) => (
+          {rightLinks.map((linkItem) => (
             <motion.li
               key={linkItem.name}
               className={`relative cursor-pointer px-4 py-2 rounded-lg font-medium transition-all ${

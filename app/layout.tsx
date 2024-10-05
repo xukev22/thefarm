@@ -17,7 +17,6 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-  session: any; // session type can be added based on next-auth types
 }>) {
   return (
     <html lang="en" className="!scroll-smooth">

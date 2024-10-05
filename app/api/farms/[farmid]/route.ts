@@ -2,6 +2,7 @@ import { options } from "../../auth/[...nextauth]/options";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next"; // If you're using next-auth
 import pool from "@/lib/db-pool";
+import { CowDB, FarmDB } from "@/lib/types";
 
 export async function GET(
   request: Request,
@@ -19,7 +20,7 @@ export async function GET(
 
   try {
     // Query the database using the imported pool
-    const { rows: farms } = await pool.query(
+    const { rows: farms } = await pool.query<FarmDB>(
       "SELECT * FROM farm WHERE farm.id = $1",
       [farmid]
     );
@@ -28,9 +29,11 @@ export async function GET(
       // No farm was found with the given farmid
       return NextResponse.json({ message: "Farm not found" }, { status: 404 });
     }
-    console.log(session.user.id);
+
+    console.log(typeof session.user.id);
     console.log(farms[0].profile_id);
-    if (session.user.id != farms[0].profile_id) {
+
+    if (session.user.id !== farms[0].profile_id.toString()) {
       return NextResponse.json(
         { message: "Unauthorized, you do not own this farm" },
         { status: 401 }
@@ -39,7 +42,7 @@ export async function GET(
 
     // TODO, return partial farm info
     // TODO, select partial cow info
-    const { rows: cows } = await pool.query(
+    const { rows: cows } = await pool.query<CowDB>(
       "SELECT * FROM cow WHERE cow.farm_id = $1",
       [farmid]
     );
