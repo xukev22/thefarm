@@ -2,9 +2,9 @@
 
 import Loading from "@/components/loading";
 import { useSession } from "next-auth/react";
-import Farm from "@/components/farm-dashboard";
+import Farm from "@/components/dashboard";
 
-export default function Dashboard() {
+export default function Farms() {
   const { data: session } = useSession();
 
   return (

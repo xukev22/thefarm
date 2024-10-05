@@ -1,12 +1,13 @@
+"use client";
+
+import Loading from "@/components/loading";
+import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { Session } from "next-auth"; // Import the Session type
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
-import { FaArrowRight } from "react-icons/fa"; // Arrow icon
 import SectionHeading from "./section-heading";
-import Loading from "./loading";
+import { motion } from "framer-motion";
 
-interface FarmProps {
+interface SessionProps {
   session: Session;
 }
 
@@ -16,62 +17,74 @@ interface Farm {
   location: string;
 }
 
-// Generate a random background gradient for the cards
-const randomBackground = () => {
-  const gradients = [
-    "bg-gradient-to-r from-green-400 to-blue-500",
-    "bg-gradient-to-r from-purple-400 to-pink-500",
-    "bg-gradient-to-r from-yellow-400 to-red-500",
-    "bg-gradient-to-r from-teal-400 to-cyan-500",
-    "bg-gradient-to-r from-indigo-400 to-purple-500",
-  ];
-  return gradients[Math.floor(Math.random() * gradients.length)];
-};
+interface Cow {
+  id: number;
+  name: string;
+  notes: string;
+}
 
-export default function Farm({ session }: FarmProps) {
-  const [farms, setFarms] = useState<Farm[]>([]);
+export default function FarmDashboard({ session }: SessionProps) {
+  const [farmData, setFarmData] = useState<Farm>();
+  const [cowsData, setCowsData] = useState<Cow[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter(); // To handle navigation
+  const pathname = usePathname(); // Get farmid from the URL using useParams
+
   useEffect(() => {
-    const fetchFarms = async () => {
-      setLoading(true); // Start loading before making the API request
+    if (!pathname) return; // If pathname is not yet available, return early
 
+    setLoading(true); // Start loading before making the API request
+    const farmid = pathname.substring(pathname.lastIndexOf("/") + 1); // Get the last part of the URL
+
+    const fetchFarmData = async () => {
       try {
-        const res = await fetch("/api/farms", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        console.log(`/api/farm/${farmid}`);
+        const response = await fetch(`/api/farms/${farmid}`);
 
-        if (!res.ok) {
-          throw new Error(`Error: ${res.status}`);
+        if (response.status === 401) {
+          setError("Unauthorized, you do not own this farm.");
+        } else if (response.status === 404) {
+          setError("Farm not found.");
+        } else if (!response.ok) {
+          setError("Something went wrong.");
+        } else {
+          const data = await response.json();
+          console.log("use effect data");
+          setFarmData(data.farm);
+          setCowsData(data.cows);
         }
-
-        const data = await res.json();
-        setFarms(data.farms); // Assuming the farms array is returned from the API
       } catch (err) {
-        setError("Failed to fetch farms. Please try again later.");
+        console.error("Error fetching farm data:", err);
+        setError("Something went wrong.");
       } finally {
         setLoading(false); // Always set loading to false, success or error
       }
     };
 
-    fetchFarms();
-  }, []);
+    fetchFarmData();
+  }, [pathname]); // Add pathname as a dependency
 
-  if (loading) {
-    return <Loading message="Loading your farms..." />;
-  }
+  //   console.log(farmData);
 
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <div>{error}</div>
+      </main>
+    );
   }
 
-  // Handle farm card click
-  const handleCardClick = (farmId: number) => {
-    router.push(`/dashboard/farms/${farmId}`);
-  };
+  if (loading) {
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <Loading message="Loading..." />
+      </main>
+    );
+  }
+
+  if (!farmData) {
+    return <div>error loading farm data</div>;
+  }
 
   return (
     <motion.section
@@ -82,28 +95,22 @@ export default function Farm({ session }: FarmProps) {
       id="about"
     >
       <SectionHeading>
-        Hey {session.user.name}, let's choose a farm to monitor
+        Hey {session.user.name}, here's the latest data on {farmData.name}
       </SectionHeading>
+      <div>
+        <h1>Farm Information</h1>
+        <p>Farm ID: {farmData.id}</p>
+        <p>Farm Name: {farmData.name}</p>
 
-      {farms.length > 0 ? (
-        <div className="space-y-4 mt-6">
-          {farms.map((farm) => (
-            <div
-              key={farm.id}
-              onClick={() => handleCardClick(farm.id)}
-              className={`cursor-pointer rounded-lg p-6 text-white flex justify-between items-center hover:scale-105 transition-transform duration-300 ${randomBackground()}`}
-            >
-              <div>
-                <h3 className="font-bold text-xl">{farm.name}</h3>
-                <p className="text-sm">Location: {farm.location}</p>
-              </div>
-              <FaArrowRight className="text-2xl" />
-            </div>
+        <h2>Cows:</h2>
+        <ul>
+          {cowsData.map((cow: any) => (
+            <li key={cow.id}>
+              Cow ID: {cow.id}, Cow Name: {cow.name}, Cow Notes: {cow.notes}
+            </li>
           ))}
-        </div>
-      ) : (
-        <p>You have no farms added... yet!</p>
-      )}
+        </ul>
+      </div>
     </motion.section>
   );
 }
