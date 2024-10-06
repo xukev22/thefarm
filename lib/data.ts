@@ -1,5 +1,6 @@
 import { LinkItem, Service } from "@/lib/types";
 import { FaTractor, FaSeedling, FaEye } from "react-icons/fa";
+import { GrOverview } from "react-icons/gr";
 
 export const links: readonly LinkItem[] = [
   {
@@ -26,12 +27,17 @@ export const links: readonly LinkItem[] = [
 
 export const services: readonly Service[] = [
   {
-    name: "Tractor Service",
+    name: "Overview",
+    description: "See the quick facts.",
+    icon: GrOverview,
+  },
+  {
+    name: "Tractor",
     description: "We provide the latest tractors for farm operations.",
     icon: FaTractor,
   },
   {
-    name: "Planting Service",
+    name: "Planting",
     description: "Get seeds planted efficiently with our automated tools.",
     icon: FaSeedling,
   },
