@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { FarmDB, SessionProps, CowDB } from "@/lib/types";
+import ServiceGrid from "./services-grid";
 
 export default function FarmDashboard({ session }: SessionProps) {
   const [farmData, setFarmData] = useState<FarmDB>();
@@ -74,9 +75,10 @@ export default function FarmDashboard({ session }: SessionProps) {
       id="about"
     >
       <SectionHeading>
-        Hey {session.user.name}, here's the latest data on {farmData.name}
+        Hey {session.user.name}, here's the scoop on {farmData.name}
       </SectionHeading>
-      <div>
+      <ServiceGrid />
+      {/* <div>
         <h1>Farm Information</h1>
         <p>Farm ID: {farmData.id}</p>
         <p>Farm Name: {farmData.name}</p>
@@ -90,7 +92,7 @@ export default function FarmDashboard({ session }: SessionProps) {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </motion.section>
   );
 }

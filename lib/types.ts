@@ -1,4 +1,5 @@
 import { Session } from "next-auth";
+import { IconType } from "react-icons";
 
 export type WithChildren = {
   children: React.ReactNode;
@@ -41,4 +42,15 @@ export interface CowDB {
 
 export interface LoadingProps {
   message?: string; // Optional message prop, defaulting to 'Loading...'
+}
+
+export interface GridProps {
+  cows: CowDB[];
+  farms: FarmDB[];
+}
+
+export interface Service {
+  name: string;
+  description: string;
+  icon: IconType;
 }
