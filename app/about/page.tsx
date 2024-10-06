@@ -1,7 +1,9 @@
+import BaseContainer from "@/components/base-container";
+
 export default function About() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <BaseContainer>
       <p>about us</p>
-    </main>
+    </BaseContainer>
   );
 }

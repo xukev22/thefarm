@@ -1,8 +1,9 @@
+import BaseContainer from "@/components/base-container";
+
 export default function Contact() {
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <p>contact us</p>
-      </main>
-    );
-  }
-  
+  return (
+    <BaseContainer>
+      <p>contact us</p>
+    </BaseContainer>
+  );
+}
