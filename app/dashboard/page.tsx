@@ -1,10 +1,10 @@
 import SessionContextWrapper from "@/context/session-context-wrapper";
-import Test from "./test";
+import FarmsSessionWrapper from "@/components/farms-session-wrapper";
 
 export default function Farm() {
   return (
     <SessionContextWrapper>
-      <Test />
+      <FarmsSessionWrapper />
     </SessionContextWrapper>
   );
 }

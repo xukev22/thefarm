@@ -1,7 +1,6 @@
 import Loading from "@/components/loading";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import { Session } from "next-auth"; // Import the Session type
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { FarmDB, SessionProps, CowDB } from "@/lib/types";

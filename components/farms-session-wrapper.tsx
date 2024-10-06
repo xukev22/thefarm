@@ -2,18 +2,19 @@
 
 import Loading from "@/components/loading";
 import { useSession } from "next-auth/react";
-import FarmDashboard from "@/components/farm-dashboard";
+import Dashboard from "@/components/dashboard";
+import BaseContainer from "@/components/base-container";
 
-export default function Test() {
+export default function FarmsSessionWrapper() {
   const { data: session } = useSession();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <BaseContainer>
       {session ? (
-        <FarmDashboard session={session} />
+        <Dashboard session={session} />
       ) : (
         <Loading message="Loading session..." />
       )}
-    </main>
+    </BaseContainer>
   );
 }
