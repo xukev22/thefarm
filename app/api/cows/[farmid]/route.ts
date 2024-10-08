@@ -2,7 +2,7 @@ import { options } from "../../auth/[...nextauth]/options";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next"; // If you're using next-auth
 import pool from "@/lib/db-pool";
-import { CowDB, FarmDB } from "@/lib/types";
+import { FarmDB, PingDB } from "@/lib/types";
 
 export async function GET(
   request: Request,
@@ -42,7 +42,7 @@ export async function GET(
 
     // TODO, return partial farm info
     // TODO, select partial cow info
-    const { rows: pings } = await pool.query<CowDB>(
+    const { rows: pings } = await pool.query<PingDB>(
       `
 SELECT cow.id AS cow_id, 
     cow.name AS cow_name, 

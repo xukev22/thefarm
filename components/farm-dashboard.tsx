@@ -85,7 +85,7 @@ export default function FarmDashboard({ session }: SessionProps) {
   const renderContent = () => {
     switch (selectedService) {
       case "overview":
-        return <FarmOverview cows={cowsData} />;
+        return <FarmOverview />;
       case "cattle management":
         return (
           <div>

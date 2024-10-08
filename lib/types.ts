@@ -40,6 +40,14 @@ export interface CowDB {
   farm_id: number;
 }
 
+export interface PingDB {
+  cow_id: number;
+  cow_name: string;
+  latitude: number;
+  longitude: number;
+  recorded_at: string;
+}
+
 export interface LoadingProps {
   message?: string; // Optional message prop, defaulting to 'Loading...'
 }
