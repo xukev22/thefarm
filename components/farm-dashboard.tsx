@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { FarmDB, SessionProps, CowDB } from "@/lib/types";
-import ServiceGrid from "./services-grid";
 import FarmOverview from "./farm-overview";
 
 export default function FarmDashboard({ session }: SessionProps) {
@@ -112,10 +111,7 @@ export default function FarmDashboard({ session }: SessionProps) {
       transition={{ delay: 0.175 }}
       id="about"
     >
-      <SectionHeading>
-        Hey {session.user.name}, here's the scoop on {farmData.name}
-      </SectionHeading>
-      <ServiceGrid setSelectedService={handleServiceChange} />{" "}
+      <SectionHeading>Welcome back, {session.user.name}</SectionHeading>
       {/* Pass the new handler */}
       <div ref={contentRef}>{renderContent()}</div>{" "}
       {/* Add the ref to the rendered content */}
