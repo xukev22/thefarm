@@ -71,12 +71,12 @@ export const services: readonly ServiceGroup[] = [
     services: [
       {
         name: "Payments",
-        description: "Display, sort, filter, and download the latest data.",
+        description: "View payment history.",
         icon: MdPayments,
       },
       {
         name: "Invoices",
-        description: "Contact us with any issues.",
+        description: "View invoice history.",
         icon: FaFileInvoice,
       },
     ],
