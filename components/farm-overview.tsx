@@ -6,7 +6,7 @@ import Loading from "./loading";
 import { FaMapMarker } from "react-icons/fa";
 
 export default function FarmOverview() {
-  // TODO secure client token
+  // TODO secure client token, explore cost optimization
   console.log(process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN);
 
   const pathname = usePathname();
@@ -67,6 +67,7 @@ export default function FarmOverview() {
   return (
     <div>
       <Map
+        reuseMaps
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
         initialViewState={{
           longitude: -122.4,
