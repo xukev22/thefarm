@@ -5,6 +5,7 @@ import { services } from "../lib/data"; // Import services data
 import { Session } from "next-auth";
 import { useServiceContext } from "@/context/service-context";
 
+// TODO: style, rectangular hover shadow/spacing
 interface SidebarContentProps {
   session: Session;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -16,7 +17,7 @@ export default function SidebarContent({
 }: SidebarContentProps) {
   const [hoveredService, setHoveredService] = useState<string | null>(null);
 
-  const { setSelectedService } = useServiceContext(); // Get the context value
+  const { selectedService, setSelectedService } = useServiceContext(); // Get the context value
 
   // Handler function for hover
   const handleHover = (serviceName: string | null) => {
@@ -26,8 +27,7 @@ export default function SidebarContent({
   // Handler function for click
   const handleClick = (serviceName: string) => {
     setSelectedService(serviceName); // Set the global state
-    console.log(serviceName);
-    setIsOpen(false); // Close the sidebar
+    // setIsOpen(false); // Close the sidebar
   };
   return (
     <>
@@ -70,14 +70,27 @@ export default function SidebarContent({
                 {group.services.map((service, serviceIdx) => (
                   <motion.div
                     key={serviceIdx}
-                    className="flex items-center space-x-3 mb-2 cursor-pointer"
+                    className={`flex items-center space-x-3 mb-2 cursor-pointer
+                      ${
+                        selectedService === service.name
+                          ? "bg-white text-green-600"
+                          : ""
+                      }`} // Apply styles if active
                     whileHover={{ scale: 1.05 }}
                     onHoverStart={() => handleHover(service.name)}
                     onHoverEnd={() => handleHover(null)}
                     onClick={() => handleClick(service.name)} // Handle click event
                   >
                     <service.icon className="h-5 w-5" />
-                    <span className="hover:text-gray-300">{service.name}</span>
+                    <span
+                      className={`hover:text-gray-300 ${
+                        selectedService === service.name
+                          ? "text-green-600"
+                          : "text-white"
+                      }`}
+                    >
+                      {service.name}
+                    </span>
 
                     {/* Tooltip on hover */}
                     {hoveredService === service.name && (
@@ -97,14 +110,14 @@ export default function SidebarContent({
           </div>
 
           {/* Footer */}
-          {/* <div className="flex items-center mt-6">
+          <div className="flex items-center mt-6">
             <img
               src="/path-to-user-image.jpg"
               alt="User Profile"
               className="rounded-full h-8 w-8"
             />
             <span className="ml-3">{session.user.name}</span>
-          </div> */}
+          </div>
         </div>
       </motion.div>
     </>

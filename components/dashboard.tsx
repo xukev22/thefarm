@@ -69,7 +69,6 @@ export default function Dashboard({ session }: SessionProps) {
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.175 }}
-      id="about"
     >
       <SectionHeading>
         Hey {session.user.name}, let's choose a farm to monitor
