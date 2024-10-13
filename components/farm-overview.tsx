@@ -52,16 +52,16 @@ export default function FarmOverview() {
     );
   }
 
-  if (!pingData) {
-    return <div>error loading farm data</div>;
-  }
-
   if (loading) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <Loading message="Loading..." />
       </main>
     );
+  }
+
+  if (!pingData) {
+    return <div>error loading farm data</div>;
   }
 
   return (

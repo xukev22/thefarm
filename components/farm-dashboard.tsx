@@ -5,15 +5,16 @@ import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { FarmDB, SessionProps, CowDB } from "@/lib/types";
 import FarmOverview from "./farm-overview";
+import { useServiceContext } from "@/context/service-context";
 
 export default function FarmDashboard({ session }: SessionProps) {
   const [farmData, setFarmData] = useState<FarmDB>();
   const [cowsData, setCowsData] = useState<CowDB[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedService, setSelectedService] = useState<string>("overview"); // Track the selected service
   const pathname = usePathname();
   const contentRef = useRef<HTMLDivElement | null>(null); // Ref for the rendered content
+  const { selectedService } = useServiceContext();
 
   useEffect(() => {
     if (!pathname) return;
@@ -46,21 +47,6 @@ export default function FarmDashboard({ session }: SessionProps) {
     fetchFarmData();
   }, [pathname]);
 
-  const handleServiceChange = (service: string, shouldScroll: boolean) => {
-    setSelectedService(service);
-
-    if (shouldScroll && contentRef.current) {
-      contentRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  useEffect(() => {
-    // Scroll to the content when the selected service changes
-    if (contentRef.current) {
-      contentRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [selectedService]);
-
   if (error) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -83,21 +69,8 @@ export default function FarmDashboard({ session }: SessionProps) {
 
   const renderContent = () => {
     switch (selectedService) {
-      case "overview":
+      case "Overview":
         return <FarmOverview />;
-      case "cattle management":
-        return (
-          <div>
-            <h2>Cattle Information</h2>
-            <ul>
-              {cowsData.map((cow) => (
-                <li key={cow.id}>
-                  Cow ID: {cow.id}, Cow Name: {cow.name}, Notes: {cow.notes}
-                </li>
-              ))}
-            </ul>
-          </div>
-        );
       default:
         return <div>Select a service to view its details.</div>;
     }
@@ -109,9 +82,8 @@ export default function FarmDashboard({ session }: SessionProps) {
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.175 }}
-      id="about"
     >
-      <SectionHeading>Welcome back, {session.user.name}</SectionHeading>
+      <SectionHeading>Here's the scoop on {farmData.name}</SectionHeading>
       {/* Pass the new handler */}
       <div ref={contentRef}>{renderContent()}</div>{" "}
       {/* Add the ref to the rendered content */}

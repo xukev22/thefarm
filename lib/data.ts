@@ -1,6 +1,11 @@
-import { LinkItem, Service } from "@/lib/types";
-import { FaTractor, FaSeedling, FaEye } from "react-icons/fa";
+import { LinkItem, ServiceGroup } from "@/lib/types";
+import { AiFillDatabase } from "react-icons/ai";
+import { FaFileInvoice, FaMapMarked } from "react-icons/fa";
+import { FcSupport } from "react-icons/fc";
 import { GrOverview } from "react-icons/gr";
+import { IoAlertCircle } from "react-icons/io5";
+import { MdPayments, MdSupportAgent } from "react-icons/md";
+import { RiRemoteControlFill } from "react-icons/ri";
 
 export const links: readonly LinkItem[] = [
   {
@@ -25,25 +30,55 @@ export const links: readonly LinkItem[] = [
   },
 ] as const;
 
-export const services: readonly Service[] = [
+export const services: readonly ServiceGroup[] = [
   {
-    name: "Overview",
-    description: "See the quick facts.",
-    icon: GrOverview,
+    header: "Services",
+    services: [
+      {
+        name: "Overview",
+        description: "See the quick facts.",
+        icon: GrOverview,
+      },
+      {
+        name: "Devices",
+        description: "Add, update, or remove devices.",
+        icon: RiRemoteControlFill,
+      },
+      {
+        name: "Maps",
+        description: "Add, update, or manage maps",
+        icon: FaMapMarked,
+      },
+      {
+        name: "Alerts",
+        description: "View the history of alerts, and review outstanding ones.",
+        icon: IoAlertCircle,
+      },
+      {
+        name: "Data",
+        description: "Display, sort, filter, and download the latest data.",
+        icon: AiFillDatabase,
+      },
+      {
+        name: "Support",
+        description: "Contact us with any issues.",
+        icon: MdSupportAgent,
+      },
+    ],
   },
   {
-    name: "Tractor",
-    description: "We provide the latest tractors for farm operations.",
-    icon: FaTractor,
-  },
-  {
-    name: "Planting",
-    description: "Get seeds planted efficiently with our automated tools.",
-    icon: FaSeedling,
-  },
-  {
-    name: "Cattle Management",
-    description: "Track and manage your cattle with our monitoring systems.",
-    icon: FaEye,
+    header: "Payment",
+    services: [
+      {
+        name: "Payments",
+        description: "Display, sort, filter, and download the latest data.",
+        icon: MdPayments,
+      },
+      {
+        name: "Invoices",
+        description: "Contact us with any issues.",
+        icon: FaFileInvoice,
+      },
+    ],
   },
 ] as const;

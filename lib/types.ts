@@ -33,6 +33,11 @@ export interface SessionProps {
   session: Session;
 }
 
+export interface ServiceGroup {
+  header: string;
+  services: Service[];
+}
+
 export interface CowDB {
   id: number;
   name: string;
