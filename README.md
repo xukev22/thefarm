@@ -1,3 +1,13 @@
+HIGHER LEVEL TODO: 
+
+create webpage schemas
+prep db for new features (profile pic, payments, etc.)
+add custom sign in / sign out / register page
+add features to dashboard
+refactoring codebase
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
