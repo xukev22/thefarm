@@ -83,9 +83,11 @@ export default function FarmDashboard({ session }: SessionProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.175 }}
     >
-      <SectionHeading>Here's the scoop on {farmData.name}</SectionHeading>
+      <SectionHeading>
+        {farmData.name} - {selectedService}
+      </SectionHeading>
       {/* Pass the new handler */}
-      <div ref={contentRef}>{renderContent()}</div>{" "}
+      <div ref={contentRef}>{renderContent()}</div>
       {/* Add the ref to the rendered content */}
     </motion.section>
   );
