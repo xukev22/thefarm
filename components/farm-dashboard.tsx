@@ -72,7 +72,7 @@ export default function FarmDashboard({ session }: SessionProps) {
       case "Overview":
         return <FarmOverview />;
       default:
-        return <div>Select a service to view its details.</div>;
+        return <div>To be implemented.</div>;
     }
   };
 
