@@ -50,13 +50,12 @@ export const options: NextAuthOptions = {
         // user returned must be at most one unique due to sql property
         const user = res.rows[0];
 
-        // TODO
         // Compare hashed passwords
-        // const isValid = await bcrypt.compare(
-        //   credentials.password,
-        //   user.password
-        // );
-        const isValid = credentials.password === user.password;
+        const isValid = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+        // const isValid = credentials.password === user.password;
 
         // Return user object without sensitive fields
         return isValid
