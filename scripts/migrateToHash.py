@@ -44,6 +44,8 @@ for user in users:
     cur.execute(
         "UPDATE profile SET password = %s WHERE id = %s", (hashed_password, user_id)
     )
+    
+    print(user)
 
 # Commit changes and close the connection
 conn.commit()
