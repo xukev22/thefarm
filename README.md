@@ -12,10 +12,11 @@ DB_PASSWORD=[some password]
 
 1. start psql server
     - `docker login` (if you havent already)
-    - `docker pull pg` (if you dont have a pg image)
-    - `docker run -d --name my_postgres -e POSTGRES_USER=root -e POSTGRES_PASSWORD=[some password] -e POSTGRES_DB=myfarm -p 5432:5432 pg`
+    - `docker pull postgres` (if you dont have a pg image)
+    - `docker run -d --name my_postgres -e POSTGRES_USER=root -e POSTGRES_PASSWORD=[some password] -e POSTGRES_DB=myfarm -p 5432:5432 postgres`
     - create some mock accounts if this is your first time, check for `scripts/main.sql` and `scripts/mock_data.sql` 
-        - i.e `docker exec -i my_postgres psql -U root -d myfarm -f /path/to/script.sql`
+        - copy `docker cp c:\Users\xukev\Documents\projects\thefarm\scripts\main.sql my_postgres:/main.sql`
+        - exec `docker exec -i my_postgres psql -U root -d myfarm -f /path/to/script.sql`
     - hash passwords in DB by using `scripts/migrateToHash.py`
 2. `npm install` (if you havent already) and then `npm run dev`
 3. enjoy!
