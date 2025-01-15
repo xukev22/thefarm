@@ -18,7 +18,7 @@ DB_PASSWORD=[some password]
         - i.e `docker exec -i my_postgres psql -U root -d myfarm -f /path/to/script.sql`
     - hash passwords in DB by using `scripts/migrateToHash.py`
 2. `npm install` (if you havent already) and then `npm run dev`
-3. 
+3. enjoy!
 
 
 
